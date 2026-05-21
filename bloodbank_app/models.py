@@ -22,7 +22,7 @@ class Hospital(models.Model):
     def __str__(self):
         return self.hospital_name
 
-class BloodInventrory(models.Model):
+class BloodInventory(models.Model):
     hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE)
     blood_group = models.CharField(max_length=10)
     units_available = models.IntegerField()
