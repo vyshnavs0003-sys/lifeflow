@@ -5,6 +5,9 @@ from .forms import RegisterForm,LoginForm
 
 # Create your views here.
 
+def home(request):
+    return render(request,'homet.html')
+
 def register_view(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
