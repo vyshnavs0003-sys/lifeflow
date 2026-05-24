@@ -45,3 +45,13 @@ class BloodRequest(models.Model):
     def __str__(self):
         return self.patient_name
 
+class UserProfile(models.Model):
+    ROLE_CHOICES = (
+        ('USER','User'),
+        ('HOSPITAL','Hospital')
+    )
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    role = models.CharField(max_length=20,choices=ROLE_CHOICES,default='USER')
+
+    def __str__(self):
+        return f"{self.user.username} - {self.role}"
