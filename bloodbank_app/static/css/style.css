@@ -44,3 +44,15 @@ button{
 button:hover{
     background-color: darkred;
 }
+
+.errorlist{
+    color: red;
+    font-size: 12px;
+    list-style-type: none;
+    padding: 0;
+    margin-top: 5px;
+}
+
+.errorlist li{
+    margin-top: 3px;
+}
