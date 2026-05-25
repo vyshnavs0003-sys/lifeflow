@@ -91,3 +91,11 @@ def update_inventory(request, inventory_id):
     else:
         form = BloodInventoryForm(instance = inventory)
     return render(request,'update_inventory.html',{'form': form})
+
+@login_required
+def delete_inventory(request,inventory_id):
+    inventory = BloodInventory.objects.get(id = inventory_id)
+    inventory.delete()
+    return redirect('hospital_dashboard')
+
+

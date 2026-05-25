@@ -10,4 +10,5 @@ urlpatterns = [
     path('hospital-dashboard/',views.hospital_dashboard,name='hospital_dashboard'),
     path('add-inventory/',views.add_inventory,name='add_inventory'),
     path('update-inventry/<int:inventory_id>/',views.update_inventory,name='update_inventory'),
+    path('delete-inventory/<int:inventory_id>/',views.delete_inventory,name='delete_inventory'),
 ]
