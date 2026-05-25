@@ -33,5 +33,9 @@ class RegisterForm(UserCreationForm):
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(max_length=100) 
-    password = forms.CharField(widget = forms.PasswordInput)      
+    password = forms.CharField(widget = forms.PasswordInput)          
 
+class BloodInventoryForm(forms.ModelForm):
+    class Meta:
+        model = BloodInventory
+        fields = ['blood_group','units_available']

@@ -15,6 +15,7 @@ class Donor(models.Model):
         return f"{self.donor_name} - {self.blood_group}"
     
 class Hospital(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
     hospital_name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
     contact = models.CharField(max_length=10)

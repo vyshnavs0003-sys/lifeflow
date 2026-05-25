@@ -3,8 +3,8 @@ from django.shortcuts import render ,redirect
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators import login_required
 
-from .models import UserProfile
-from .forms import RegisterForm,LoginForm
+from .models import UserProfile,Hospital,BloodInventory
+from .forms import RegisterForm,LoginForm,BloodInventoryForm
 
 # Create your views here.
 
@@ -63,3 +63,18 @@ def user_dashboard(request):
 @login_required
 def hospital_dashboard(request):
     return render(request,'hospital_dashboard.html')
+
+@login_required
+def add_inventory(request):
+    hospital = Hospital.objects.get(user = request.user)
+    if request.method == 'POST':
+        form = BloodInventoryForm(request.POST)
+        if form.is_valid():
+            inventory = form.save(commit=False)
+            inventory.hospital = hospital
+            inventory.save()
+            return redirect('hospital_dashboard')
+    else:
+        form = BloodInventoryForm()
+        return render(request,'add_inventory.html',{'form': form})    
+
