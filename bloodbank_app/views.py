@@ -62,7 +62,9 @@ def user_dashboard(request):
 
 @login_required
 def hospital_dashboard(request):
-    return render(request,'hospital_dashboard.html')
+    hospital = Hospital.objects.get(user = request.user)
+    inventories = BloodInventory.objects.filter(hospital = hospital)
+    return render(request,'hospital_dashboard.html',{'hospital': hospital,'inventories': inventories})
 
 @login_required
 def add_inventory(request):

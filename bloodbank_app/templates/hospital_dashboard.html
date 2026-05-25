@@ -1,5 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Hospital Dashboard</h1>
+<h1>{{ hospital.hospital_name }}</h1>
+<a href="{% url 'add_inventory' %}">Add Inventory</a>
+<hr>
+<table border="1px"> 
+    <tr>
+        <th>
+            Blood Group
+        </th>
+        <th>
+            Units Available
+        </th>
+    </tr>
+    {% for inventory in inventories %}
+    <tr>
+        <td>
+            {{ inventory.blood_group}}
+        </td>
+        <td>
+            {{ inventory.units_available }}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
 {% endblock %}
