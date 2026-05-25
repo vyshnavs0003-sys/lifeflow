@@ -80,3 +80,14 @@ def add_inventory(request):
         form = BloodInventoryForm()
         return render(request,'add_inventory.html',{'form': form})    
 
+@login_required
+def update_inventory(request, inventory_id):
+    inventory = BloodInventory.objects.get(id = inventory_id)
+    if request.method == 'POST':
+        form = BloodInventoryForm(request.POST,instance = inventory)
+        if form.is_valid():
+            form.save()
+            return redirect('hospital_dashboard')
+    else:
+        form = BloodInventoryForm(instance = inventory)
+    return render(request,'update_inventory.html',{'form': form})

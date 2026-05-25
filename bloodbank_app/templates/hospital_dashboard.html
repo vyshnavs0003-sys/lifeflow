@@ -12,6 +12,9 @@
         <th>
             Units Available
         </th>
+        <th>
+            Action
+        </th>
     </tr>
     {% for inventory in inventories %}
     <tr>
@@ -20,6 +23,10 @@
         </td>
         <td>
             {{ inventory.units_available }}
+        </td>
+        <td>
+            <a href="{% url 'update_inventory' inventory.id %}">Edit</a>
+            <a href="">Delete</a>
         </td>
     </tr>
     {% endfor %}
