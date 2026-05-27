@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>
+    Blood Availability
+</h2>
+<table border="1">
+    <tr>
+        <th>
+            Hospital
+        </th>
+        <th>
+            Location
+        </th>
+        <th>
+            Blood Group
+        </th>
+        <th>
+            Units Available
+        </th>
+    </tr>
+    {% for inventory in inventories %}
+    <tr>
+        <td>
+            {{ inventory.hospital.hospital_name }}
+        </td>
+        <td>
+            {{ inventory.hospital.location }}
+        </td>
+        <td>
+            {{ inventory.blood_group }}
+        </td>
+        <td>
+            {{ inventory.units_available }}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

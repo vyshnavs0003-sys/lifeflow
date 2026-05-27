@@ -98,4 +98,9 @@ def delete_inventory(request,inventory_id):
     inventory.delete()
     return redirect('hospital_dashboard')
 
+@login_required
+def check_availability(request):
+    inventories = BloodInventory.objects.all()
+    return render(request,'check_availability.html',{'inventories': inventories})
+
 
