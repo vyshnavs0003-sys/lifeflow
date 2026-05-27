@@ -100,7 +100,10 @@ def delete_inventory(request,inventory_id):
 
 @login_required
 def check_availability(request):
+    blood_group = request.GET.get('blood_group')
     inventories = BloodInventory.objects.all()
+    if blood_group:
+        inventories = inventories.filter(blood_group = blood_group)
     return render(request,'check_availability.html',{'inventories': inventories})
 
 
