@@ -2,5 +2,15 @@
 
 {% block content %}
 <h1>User Dashboard</h1>
-<a href="{% url 'check_availability' %}">Check Blood Availability</a>
+<p>Welcome, {{ user.first_name }}</p>
+<p>Username: {{ user.username }}</p>
+<p>Email: {{ user.email }}</p>
+<hr>
+<a href="{% url 'check_availability' %}">
+    Check Blood Availability
+</a>
+<br><br>
+<a href="{% url 'become_donor' %}">
+    Become a Donor
+</a>
 {% endblock %}

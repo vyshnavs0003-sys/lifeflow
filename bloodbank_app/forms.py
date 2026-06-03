@@ -6,7 +6,7 @@ from .models import Donor,BloodRequest,Hospital,BloodInventory
 class DonorForm(forms.ModelForm):
     class Meta:
         model = Donor
-        fields = ['donor_name','blood_group','phone','location','age','last_donation_date']
+        fields = ['blood_group','age','location','medical_issues','last_donation_date','available_for_donation','consent_to_contact']
 
 
 class BloodRequestForm(forms.ModelForm):

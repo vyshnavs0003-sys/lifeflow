@@ -3,8 +3,8 @@ from django.shortcuts import render ,redirect
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators import login_required
 
-from .models import UserProfile,Hospital,BloodInventory
-from .forms import RegisterForm,LoginForm,BloodInventoryForm
+from .models import UserProfile,Hospital,BloodInventory,Donor
+from .forms import RegisterForm,LoginForm,BloodInventoryForm,DonorForm
 
 # Create your views here.
 
@@ -106,4 +106,15 @@ def check_availability(request):
         inventories = inventories.filter(blood_group = blood_group)
     return render(request,'check_availability.html',{'inventories': inventories})
 
-
+@login_required
+def become_donor(request):
+    if request.method == 'POST':
+        form = DonorForm(request.POST)
+        if form.is_valid():
+            donor = form.save(commit=False)
+            donor.user = request.user
+            donor.save()
+            return redirect('user_dashboard')
+    else:
+        form = DonorForm()
+    return render(request,'become_donor.html',{'form': form})

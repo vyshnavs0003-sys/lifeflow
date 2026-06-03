@@ -4,15 +4,17 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Donor(models.Model):
-    donor_name = models.CharField(max_length=100)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     blood_group = models.CharField(max_length=10)
-    phone = models.CharField(max_length=10)
-    location = models.CharField(max_length=100)
     age = models.IntegerField()
-    last_donation_date = models.DateField()
+    location = models.CharField(max_length=100)
+    medical_issues = models.TextField(blank=True)
+    last_donation_date = models.DateField(null=True, blank=True)
+    available_for_donation = models.BooleanField(default=True)
+    consent_to_contact = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.donor_name} - {self.blood_group}"
+        return self.user.username
     
 class Hospital(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)

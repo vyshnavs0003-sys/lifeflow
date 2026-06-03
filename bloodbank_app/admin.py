@@ -3,12 +3,11 @@ from .models import Donor, Hospital, BloodInventory, BloodRequest,UserProfile
 # Register your models here.
 
 class DonorAdmin(admin.ModelAdmin):
-    list_display = ['donor_name','blood_group','phone','location','age','last_donation_date']
-    search_fields = ['donor_name','blood_group','location']
-    list_filter = [ 'blood_group','location']
+    list_display = ['user','blood_group','location','age','available_for_donation']
+    search_fields = ['user__username','user__first_name','user__last_name','blood_group','location']
+    list_filter = ['blood_group','location','available_for_donation']
     ordering = ['id']
     list_per_page = 10
-
 
 class HospitalAdmin(admin.ModelAdmin):
     list_display = ['hospital_name','location','contact']
