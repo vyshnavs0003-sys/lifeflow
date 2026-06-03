@@ -12,5 +12,6 @@ urlpatterns = [
     path('update-inventry/<int:inventory_id>/',views.update_inventory,name='update_inventory'),
     path('delete-inventory/<int:inventory_id>/',views.delete_inventory,name='delete_inventory'),
     path('check-availability/',views.check_availability,name='check_availability'),
-    path('become-donor/',views.become_donor,name='become_donor')
+    path('become-donor/',views.become_donor,name='become_donor'),
+    path('donor-profile/',views.donor_profile,name='donor_profile'),
 ]

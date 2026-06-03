@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Donor Profile</h2>
+
+<p><strong>Name:</strong> {{ donor.user.first_name }} {{ donor.user.last_name }}</p>
+<p><strong>Username:</strong> {{ donor.user.username }}</p>
+<p><strong>Blood Group:</strong> {{ donor.blood_group }}</p>
+<p><strong>Age:</strong> {{ donor.age }}</p>
+<p><strong>Location:</strong> {{ donor.location }}</p>
+<p><strong>Medical Issues:</strong> {{ donor.medical_issues }}</p>
+<p><strong>Last Donation Date:</strong> {{ donor.last_donation_date }}</p>
+<p><strong>Available for Donation:</strong> {{ donor.available_for_donation }}</p>
+<p><strong>Consent to Contact:</strong> {{ donor.consent_to_contact }}</p>
+<br>
+<a href="{% url 'user_dashboard' %}">
+    Back to Dashboard
+</a>
+{% endblock %}

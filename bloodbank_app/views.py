@@ -58,7 +58,8 @@ def logout_view(request):
 
 @login_required
 def user_dashboard(request):
-    return render(request,'user_dashboard.html')
+    is_donor = Donor.objects.filter(user=request.user).exists()
+    return render(request,'user_dashboard.html',{'user': request.user,'is_donor': is_donor})
 
 @login_required
 def hospital_dashboard(request):
@@ -118,3 +119,8 @@ def become_donor(request):
     else:
         form = DonorForm()
     return render(request,'become_donor.html',{'form': form})
+
+@login_required
+def donor_profile(request):
+    donor = Donor.objects.get(user=request.user)
+    return render(request,'donor_profile.html',{'donor': donor})
