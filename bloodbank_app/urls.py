@@ -14,4 +14,5 @@ urlpatterns = [
     path('check-availability/',views.check_availability,name='check_availability'),
     path('become-donor/',views.become_donor,name='become_donor'),
     path('donor-profile/',views.donor_profile,name='donor_profile'),
+    path('donor-profile/edit/',views.edit_donor_profile,name='edit_donor_profile'),
 ]

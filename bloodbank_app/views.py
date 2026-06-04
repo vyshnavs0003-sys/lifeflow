@@ -1,4 +1,4 @@
-from django.shortcuts import render ,redirect
+from django.shortcuts import render ,redirect, get_object_or_404
 
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators import login_required
@@ -124,3 +124,15 @@ def become_donor(request):
 def donor_profile(request):
     donor = Donor.objects.get(user=request.user)
     return render(request,'donor_profile.html',{'donor': donor})
+
+@login_required
+def edit_donor_profile(request):
+    donor = get_object_or_404(Donor, user=request.user)
+    if request.method == 'POST':
+        form = DonorForm(request.POST, instance=donor)
+        if form.is_valid():
+            form.save()
+            return redirect('donor_profile')
+    else:
+        form = DonorForm(instance=donor)
+    return render(request, 'edit_donor_profile.html', {'form': form})
