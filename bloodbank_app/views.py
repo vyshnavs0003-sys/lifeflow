@@ -3,8 +3,8 @@ from django.shortcuts import render ,redirect, get_object_or_404
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators import login_required
 
-from .models import UserProfile,Hospital,BloodInventory,Donor
-from .forms import RegisterForm,LoginForm,BloodInventoryForm,DonorForm
+from .models import UserProfile,Hospital,BloodInventory,Donor,BloodRequest
+from .forms import RegisterForm,LoginForm,BloodInventoryForm,DonorForm,BloodRequestForm
 
 # Create your views here.
 
@@ -148,3 +148,16 @@ def donor_list(request):
     if blood_group:
         donors = donors.filter(blood_group__iexact=blood_group)
     return render(request,'donor_list.html',{'donors': donors})
+
+@login_required
+def request_blood(request):
+    if request.method == 'POST':
+        form = BloodRequestForm(request.POST)
+        if form.is_valid():
+            blood_request = form.save(commit=False)
+            blood_request.requested_by = request.user
+            blood_request.save()
+            return redirect('user_dashboard')
+    else:
+        form = BloodRequestForm()
+    return render(request,'request_blood.html',{'form': form})
