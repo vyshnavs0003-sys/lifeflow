@@ -20,7 +20,11 @@
             <a href="{% url 'donor_list' %}">View Donor List</a>
         {% else %}
             <a href="{% url 'user_dashboard' %}">User Dashboard</a>
-            <a href="{% url 'become_donor' %}"></a>
+            {% if user.donor %}
+                <a href="{% url 'donor_profile' %}">Donor Profile</a>
+            {% else %}
+                <a href="{% url 'become_donor' %}">Become Donor</a>
+            {% endif %}
             <a href="{% url 'check_availability' %}">Check Blood Availability</a>
             <a href="{% url 'donor_list' %}">View Donor List</a>
         {% endif %}

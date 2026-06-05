@@ -57,13 +57,4 @@
     {% endfor %}
 </table>
 <br><br>
-{% if request.user.userprofile.role == 'HOSPITAL' %}
-<a href="{% url 'hospital_dashboard' %}">
-    Back to Dashboard
-</a>
-{% else %}
-<a href="{% url 'user_dashboard' %}">
-    Back to Dashboard
-</a>
-{% endif %}
 {% endblock %}
