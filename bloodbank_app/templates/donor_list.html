@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Donor List</h1>
+
+<form method="GET">
+    <label>Blood Group:</label>
+    <input
+        type="text"
+        name="blood_group"
+        placeholder="O+, A+, B+, AB+"
+        value="{{ request.GET.blood_group }}"
+    >
+    <button type="submit">
+        Search
+    </button>
+</form>
+<br>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Blood Group</th>
+        <th>Location</th>
+        <th>Available</th>
+        <th>Contact</th>
+    </tr>
+    {% for donor in donors %}
+    <tr>
+        <td>
+            {{ donor.user.first_name }}
+            {{ donor.user.last_name }}
+        </td>
+        <td>
+            {{ donor.blood_group }}
+        </td>
+        <td>
+            {{ donor.location }}
+        </td>
+        <td>
+            {{ donor.available_for_donation }}
+        </td>
+        <td>
+            {% if donor.consent_to_contact %}
+                {{ donor.user.userprofile.phone }}
+            {% else %}
+                Contact Not Permitted
+            {% endif %}
+
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="5">
+            No donors found.
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<br><br>
+{% if request.user.userprofile.role == 'HOSPITAL' %}
+<a href="{% url 'hospital_dashboard' %}">
+    Back to Dashboard
+</a>
+{% else %}
+<a href="{% url 'user_dashboard' %}">
+    Back to Dashboard
+</a>
+{% endif %}
+{% endblock %}

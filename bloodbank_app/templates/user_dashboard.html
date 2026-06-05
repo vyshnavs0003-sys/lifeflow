@@ -6,6 +6,10 @@
 <p>Username: {{ user.username }}</p>
 <p>Email: {{ user.email }}</p>
 <hr>
+<a href="{% url 'donor_list' %}">
+    View Donor List
+</a>
+<br><br>
 <a href="{% url 'check_availability' %}">
     Check Blood Availability
 </a>

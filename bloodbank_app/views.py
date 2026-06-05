@@ -11,16 +11,19 @@ from .forms import RegisterForm,LoginForm,BloodInventoryForm,DonorForm
 def home(request):
     return render(request,'home.html')
 
+
 def register_view(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
-            UserProfile.objects.create(  user = user)
-            return redirect ('login')
+            phone = form.cleaned_data['phone']
+            UserProfile.objects.create(user=user,phone=phone)
+            return redirect('login')
     else:
         form = RegisterForm()
-    return render(request, 'register.html',{'form':form})         
+    return render(request,'register.html', {'form': form})  
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -28,44 +31,38 @@ def login_view(request):
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-            user = authenticate(
-                request,
-                username=username,
-                password=password
-            ) 
+            user = authenticate(request,username=username,password=password) 
             if user is not None:
                 login(request, user)
-                profile = UserProfile.objects.get(
-                    user = request.user
-                )
+                profile = UserProfile.objects.get(user = request.user)
                 if profile.role == 'HOSPITAL':
-                    return redirect(
-                        'hospital_dashboard'
-                    )
+                    return redirect('hospital_dashboard')
                 else:
-                    return redirect(
-                        'user_dashboard'
-                    )
+                    return redirect('user_dashboard')
             else:
                 return render(request,'login.html',{'form':form,'error':'Invalid username or password'})
     else:
         form = LoginForm()
     return render(request,'login.html',{'form':form})    
 
+
 def logout_view(request):
     logout(request)
     return redirect('login')
+
 
 @login_required
 def user_dashboard(request):
     is_donor = Donor.objects.filter(user=request.user).exists()
     return render(request,'user_dashboard.html',{'user': request.user,'is_donor': is_donor})
 
+
 @login_required
 def hospital_dashboard(request):
     hospital = Hospital.objects.get(user = request.user)
     inventories = BloodInventory.objects.filter(hospital = hospital)
     return render(request,'hospital_dashboard.html',{'hospital': hospital,'inventories': inventories})
+
 
 @login_required
 def add_inventory(request):
@@ -81,6 +78,7 @@ def add_inventory(request):
         form = BloodInventoryForm()
         return render(request,'add_inventory.html',{'form': form})    
 
+
 @login_required
 def update_inventory(request, inventory_id):
     inventory = BloodInventory.objects.get(id = inventory_id)
@@ -93,11 +91,13 @@ def update_inventory(request, inventory_id):
         form = BloodInventoryForm(instance = inventory)
     return render(request,'update_inventory.html',{'form': form})
 
+
 @login_required
 def delete_inventory(request,inventory_id):
     inventory = BloodInventory.objects.get(id = inventory_id)
     inventory.delete()
     return redirect('hospital_dashboard')
+
 
 @login_required
 def check_availability(request):
@@ -106,6 +106,7 @@ def check_availability(request):
     if blood_group:
         inventories = inventories.filter(blood_group = blood_group)
     return render(request,'check_availability.html',{'inventories': inventories})
+
 
 @login_required
 def become_donor(request):
@@ -120,10 +121,12 @@ def become_donor(request):
         form = DonorForm()
     return render(request,'become_donor.html',{'form': form})
 
+
 @login_required
 def donor_profile(request):
     donor = Donor.objects.get(user=request.user)
     return render(request,'donor_profile.html',{'donor': donor})
+
 
 @login_required
 def edit_donor_profile(request):
@@ -136,3 +139,12 @@ def edit_donor_profile(request):
     else:
         form = DonorForm(instance=donor)
     return render(request, 'edit_donor_profile.html', {'form': form})
+
+
+@login_required
+def donor_list(request):
+    blood_group = request.GET.get('blood_group')
+    donors = Donor.objects.filter(available_for_donation=True)
+    if blood_group:
+        donors = donors.filter(blood_group__iexact=blood_group)
+    return render(request,'donor_list.html',{'donors': donors})
