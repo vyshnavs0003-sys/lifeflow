@@ -172,3 +172,12 @@ def hospital_blood_requests(request):
     hospital = Hospital.objects.get(user=request.user)
     requests = BloodRequest.objects.filter(hospital=hospital).order_by('-request_date')
     return render(request,'hospital_blood_requests.html',{'requests': requests})
+
+@login_required
+def update_request_status(request, request_id, status):
+    blood_request = BloodRequest.objects.get(id=request_id)
+    if blood_request.hospital.user != request.user:
+        return redirect('hospital_dashboard')
+    blood_request.status = status
+    blood_request.save()
+    return redirect('hospital_blood_requests')
