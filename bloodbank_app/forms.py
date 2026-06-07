@@ -10,6 +10,7 @@ class DonorForm(forms.ModelForm):
 
 
 class BloodRequestForm(forms.ModelForm):
+    required_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
     class Meta:
         model = BloodRequest
         fields = ['patient_name','patient_id','blood_group_needed','units_needed','hospital','reason','required_date','contact_number']

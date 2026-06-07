@@ -17,4 +17,5 @@ urlpatterns = [
     path('donor-profile/edit/',views.edit_donor_profile,name='edit_donor_profile'),
     path('donor-list/',views.donor_list,name='donor_list'),
     path('request-blood/',views.request_blood,name='request_blood'),
+    path('my-blood-requests/',views.my_blood_requests,name='my_blood_requests'),
 ]

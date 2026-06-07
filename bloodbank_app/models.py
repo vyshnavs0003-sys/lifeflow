@@ -34,19 +34,26 @@ class BloodInventory(models.Model):
         return f"{self.hospital.hospital_name} - {self.blood_group}"
 
 class BloodRequest(models.Model):
-    requested_by = models.ForeignKey(User,on_delete=models.CASCADE)  
+    STATUS_CHOICES = (
+        ('Pending', 'Pending'),
+        ('Approved', 'Approved'),
+        ('Completed', 'Completed'),
+        ('Rejected', 'Rejected'),
+    )
+    requested_by = models.ForeignKey(User,on_delete=models.CASCADE)
     patient_name = models.CharField(max_length=100)
     patient_id = models.CharField(max_length=50)
-    blood_group_needed= models.CharField(max_length=10)
-    units_needed= models.IntegerField()
+    blood_group_needed = models.CharField(max_length=10)
+    units_needed = models.IntegerField()
     hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE)
     reason = models.TextField()
+    request_date = models.DateField(auto_now_add=True)
     required_date = models.DateField()
     contact_number = models.CharField(max_length=10)
-    status = models.CharField(max_length=20,default='Pending')
+    status = models.CharField(max_length=20,choices=STATUS_CHOICES,default='Pending')
 
     def __str__(self):
-        return self.patient_name
+        return f"{self.patient_name} - {self.blood_group_needed}"
 
 class UserProfile(models.Model):
     ROLE_CHOICES = (

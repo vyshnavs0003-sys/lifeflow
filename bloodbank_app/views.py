@@ -161,3 +161,8 @@ def request_blood(request):
     else:
         form = BloodRequestForm()
     return render(request,'request_blood.html',{'form': form})
+
+@login_required
+def my_blood_requests(request):
+    requests = BloodRequest.objects.filter(requested_by=request.user).order_by('-request_date')
+    return render(request,'my_blood_requests.html',{'requests': requests})
