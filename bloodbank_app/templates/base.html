@@ -18,6 +18,7 @@
             <a href="{% url 'hospital_dashboard' %}">Hospital Dashboard</a>
             <a href="{% url 'add_inventory' %}">Add Inventory</a>
             <a href="{% url 'donor_list' %}">View Donor List</a>
+            <a href="{% url 'hospital_blood_requests' %}">View Blood Requests</a>
         {% else %}
             <a href="{% url 'user_dashboard' %}">User Dashboard</a>
             {% if user.donor %}

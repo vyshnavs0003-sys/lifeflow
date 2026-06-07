@@ -166,3 +166,9 @@ def request_blood(request):
 def my_blood_requests(request):
     requests = BloodRequest.objects.filter(requested_by=request.user).order_by('-request_date')
     return render(request,'my_blood_requests.html',{'requests': requests})
+
+@login_required
+def hospital_blood_requests(request):
+    hospital = Hospital.objects.get(user=request.user)
+    requests = BloodRequest.objects.filter(hospital=hospital).order_by('-request_date')
+    return render(request,'hospital_blood_requests.html',{'requests': requests})

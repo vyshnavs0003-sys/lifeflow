@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Blood Requests</h2>
+
+{% for request in requests %}
+<div style="border:1px solid #ccc; padding:15px; margin:10px;">
+    <p>
+        <strong>Requested By:</strong>
+        {{request.requested_by.username }}
+    </p>
+    <p>
+        <strong>Patient:</strong> 
+        {{ request.patient_name }}
+    </p>
+    <p>
+        <strong>Blood Group:</strong> 
+        {{ request.blood_group_needed }}
+    </p>
+    <p>
+        <strong>Units:</strong> 
+        {{ request.units_needed }}
+    </p>
+    <p>
+        <strong>Reason:</strong> 
+        {{ request.reason }}
+    </p>
+    <p>
+        <strong>Contact:</strong> 
+        {{ request.contact_number }}
+    </p>
+    <p>
+        <strong>Request Date:</strong>
+        {{ request.request_date }}
+    </p>
+
+    <p>
+        <strong>Required Date:</strong>
+        {{ request.required_date }}
+    </p>
+
+    <p>
+        <strong>Status:</strong>
+        {{ request.status }}
+    </p>
+</div>
+
+{% empty %}
+<p>No blood requests found.</p>
+{% endfor %}
+{% endblock %}
