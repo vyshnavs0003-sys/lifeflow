@@ -1,58 +1,144 @@
-body{
-    margin: 0;
-    padding: 0;
+body {
+    background-color: #f8f9fa;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #f4f4f4;
 }
 
-nav{
-    background-color:#b30000;
-    padding: 15px;
+.lifeflow-navbar {
+    background: #b30000;
 }
 
-nav a{
-    color: white;
-    text-decoration: none;
-    margin-right: 20px;
-    font-size: 18px;
-}
-nav a:hover{
-    color: yellow;
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.4rem;
 }
 
-h1{
+.navbar-nav .nav-link {
+    color: white !important;
+    font-weight: 500;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ffd700 !important;
+}
+
+.page-title,
+.dashboard-title,
+.profile-title,
+.form-title,
+.table-page-title,
+.auth-title {
+    font-weight: 700;
+    color: #b30000;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.auth-card {
+    border-radius: 15px;
+}
+
+.form-card {
+    border-radius: 15px;
+}
+
+.lifeflow-form p {
+    margin-bottom: 1rem;
+}
+
+.lifeflow-form label {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.form-control,
+.form-select {
+    border-radius: 8px;
+}
+
+.profile-card {
+    border-radius: 15px;
+}
+
+.dashboard-card {
+    border-radius: 15px;
     text-align: center;
-    margin-top: 30px;
 }
 
-form{
-    width: 400px;
-    margin: auto;
-    background-color: white;
-    padding: 20px;
+.action-card {
+    transition: 0.3s;
+}
+
+.action-card:hover {
+    transform: translateY(-5px);
+}
+
+.request-card {
+    border-left: 5px solid #b30000;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table thead {
+    background-color: #b30000;
+    color: white;
+}
+
+.table th {
+    vertical-align: middle;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.btn {
+    border-radius: 8px;
+}
+
+.btn-danger {
+    background-color: #b30000;
+    border-color: #b30000;
+}
+
+.btn-danger:hover {
+    background-color: #900000;
+    border-color: #900000;
+}
+
+.alert {
     border-radius: 10px;
 }
 
-button{
-    background-color: #b30000;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
+
+.main-content {
+    padding-bottom: 50px;
 }
 
-button:hover{
-    background-color: darkred;
-}
 
-.errorlist{
-    color: red;
-    font-size: 12px;
-    list-style-type: none;
-    padding: 0;
-    margin-top: 5px;
-}
+@media (max-width: 768px) {
 
-.errorlist li{
-    margin-top: 3px;
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+
+    .dashboard-title,
+    .profile-title,
+    .form-title,
+    .table-page-title,
+    .auth-title {
+        font-size: 1.5rem;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
 }

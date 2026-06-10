@@ -1,13 +1,33 @@
 {% extends 'base.html' %}
+
+{% block title %}
+Update Inventory
+{% endblock %}
+
 {% block content %}
 
-<h2>
-    Update Invetory
-</h2>
+<div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+        <div class="card form-card shadow-sm">
+            <div class="card-body p-4">
+                <h2 class="form-title text-center mb-4">
+                    Update Blood Inventory
+                </h2>
+                <form method="POST" class="lifeflow-form">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="d-grid mt-3">
+                        <button
+                            type="submit"
+                            class="btn btn-warning"
+                        >
+                            Update Inventory
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Update</button>
-</form>
 {% endblock %}

@@ -1,22 +1,81 @@
 {% extends 'base.html' %}
 
+{% block title %}
+User Dashboard
+{% endblock %}
+
 {% block content %}
-<h1>User Dashboard</h1>
-<p>Welcome, {{ user.first_name }}</p>
-<p>Username: {{ user.username }}</p>
-<p>Email: {{ user.email }}</p>
-<hr>
 
+<div class="dashboard-container">
+    <div class="card dashboard-card shadow-sm mb-4">
+        <div class="card-body">
+            <h2 class="dashboard-title">
+                Welcome, {{ user.first_name }}
+            </h2>
+            <hr>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <p class="dashboard-info">
+                        <strong>Username:</strong>
+                        {{ user.username }}
+                    </p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <p class="dashboard-info">
+                        <strong>Email:</strong>
+                        {{ user.email }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card action-card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Donor Services
+                    </h5>
+                    <p class="card-text">
+                        Register as a donor or manage your donor profile.
+                    </p>
+                    {% if is_donor %}
+                        <a
+                            href="{% url 'donor_profile' %}"
+                            class="btn btn-danger"
+                        >
+                            View Donor Profile
+                        </a>
+                    {% else %}
+                        <a
+                            href="{% url 'become_donor' %}"
+                            class="btn btn-danger"
+                        >
+                            Become a Donor
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card action-card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Blood Requests
+                    </h5>
+                    <p class="card-text">
+                        Create a new blood request for a patient.
+                    </p>
+                    <a
+                        href="{% url 'request_blood' %}"
+                        class="btn btn-danger"
+                    >
+                        Request Blood
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-{% if is_donor %}
-    <a href="{% url 'donor_profile' %}">
-        View Donor Profile
-    </a>
-{% else %}
-    <a href="{% url 'become_donor' %}">
-        Become a Donor
-    </a>
-{% endif %}
-<br><br>
-<a href="{% url 'request_blood' %}">Request Blood</a>
 {% endblock %}

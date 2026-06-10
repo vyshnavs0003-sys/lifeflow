@@ -1,36 +1,90 @@
 {% extends 'base.html' %}
 
+{% block title %}
+Hospital Dashboard
+{% endblock %}
+
 {% block content %}
-<h1>{{ hospital.hospital_name }}</h1>
-<br><br>
-<a href="{% url 'hospital_blood_requests' %}">View Blood Requests</a>
-<br><br>
-<hr>
-<table border="1px"> 
-    <tr>
-        <th>
-            Blood Group
-        </th>
-        <th>
-            Units Available
-        </th>
-        <th>
-            Action
-        </th>
-    </tr>
-    {% for inventory in inventories %}
-    <tr>
-        <td>
-            {{ inventory.blood_group}}
-        </td>
-        <td>
-            {{ inventory.units_available }}
-        </td>
-        <td>
-            <a href="{% url 'update_inventory' inventory.id %}">Edit</a>
-            <a href="{% url 'delete_inventory' inventory.id %}">Delete</a>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+
+<div class="hospital-dashboard">
+    <div class="card dashboard-card shadow-sm mb-4">
+        <div class="card-body">
+            <h2 class="dashboard-title">
+                {{ hospital.hospital_name }}
+            </h2>
+            <p class="text-muted mb-0">
+                Manage blood inventory and blood requests.
+            </p>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-6 mb-3">
+            <a
+                href="{% url 'add_inventory' %}"
+                class="btn btn-danger w-100 dashboard-btn"
+            >
+                Add Blood Inventory
+            </a>
+        </div>
+        <div class="col-md-6 mb-3">
+            <a
+                href="{% url 'hospital_blood_requests' %}"
+                class="btn btn-outline-danger w-100 dashboard-btn"
+            >
+                View Blood Requests
+            </a>
+        </div>
+    </div>
+    <div class="card shadow-sm inventory-card">
+        <div class="card-body">
+            <h4 class="mb-3">
+                Blood Inventory
+            </h4>
+            <div class="table-responsive">
+                <table class="table table-hover inventory-table">
+                    <thead>
+                        <tr>
+                            <th>Blood Group</th>
+                            <th>Units Available</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for inventory in inventories %}
+                        <tr>
+                            <td>
+                                {{ inventory.blood_group }}
+                            </td>
+                            <td>
+                                {{ inventory.units_available }}
+                            </td>
+                            <td>
+                                <a
+                                    href="{% url 'update_inventory' inventory.id %}"
+                                    class="btn btn-sm btn-warning me-2"
+                                >
+                                    Edit
+                                </a>
+                                <a
+                                    href="{% url 'delete_inventory' inventory.id %}"
+                                    class="btn btn-sm btn-danger"
+                                >
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3" class="text-center">
+                                No inventory found.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

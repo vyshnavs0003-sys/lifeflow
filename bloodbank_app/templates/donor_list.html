@@ -1,60 +1,100 @@
 {% extends 'base.html' %}
 
+{% block title %}
+Donor List
+{% endblock %}
+
 {% block content %}
-<h1>Donor List</h1>
 
-<form method="GET">
-    <label>Blood Group:</label>
-    <input
-        type="text"
-        name="blood_group"
-        placeholder="O+, A+, B+, AB+"
-        value="{{ request.GET.blood_group }}"
-    >
-    <button type="submit">
-        Search
-    </button>
-</form>
-<br>
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Blood Group</th>
-        <th>Location</th>
-        <th>Available</th>
-        <th>Contact</th>
-    </tr>
-    {% for donor in donors %}
-    <tr>
-        <td>
-            {{ donor.user.first_name }}
-            {{ donor.user.last_name }}
-        </td>
-        <td>
-            {{ donor.blood_group }}
-        </td>
-        <td>
-            {{ donor.location }}
-        </td>
-        <td>
-            {{ donor.available_for_donation }}
-        </td>
-        <td>
-            {% if donor.consent_to_contact %}
-                {{ donor.user.userprofile.phone }}
-            {% else %}
-                Contact Not Permitted
-            {% endif %}
+<div class="donor-list-page">
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h2 class="table-page-title mb-3">
+                Donor Directory
+            </h2>
+            <form method="GET" class="row g-3 align-items-end">
+                <div class="col-md-8">
+                    <label class="form-label">
+                        Blood Group
+                    </label>
+                    <input
+                        type="text"
+                        name="blood_group"
+                        class="form-control"
+                        placeholder="O+, A+, B+, AB+"
+                        value="{{ request.GET.blood_group }}"
+                    >
+                </div>
+                <div class="col-md-4">
+                    <button
+                        type="submit"
+                        class="btn btn-danger w-100"
+                    >
+                        Search
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle donor-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Blood Group</th>
+                            <th>Location</th>
+                            <th>Available</th>
+                            <th>Contact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for donor in donors %}
+                        <tr>
+                            <td>
+                                {{ donor.user.first_name }}
+                                {{ donor.user.last_name }}
+                            </td>
+                            <td>
+                                {{ donor.blood_group }}
+                            </td>
+                            <td>
+                                {{ donor.location }}
+                            </td>
+                            <td>
+                                {% if donor.available_for_donation %}
+                                    <span class="badge bg-success">
+                                        Available
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-secondary">
+                                        Unavailable
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if donor.consent_to_contact %}
+                                    {{ donor.user.userprofile.phone }}
+                                {% else %}
+                                    <span class="text-muted">
+                                        Contact Not Permitted
+                                    </span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center">
+                                No donors found.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
-        </td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="5">
-            No donors found.
-        </td>
-    </tr>
-    {% endfor %}
-</table>
-<br><br>
 {% endblock %}

@@ -1,20 +1,67 @@
 {% extends 'base.html' %}
 
-{% block content %}
-<h2>Donor Profile</h2>
+{% block title %}
+Donor Profile
+{% endblock %}
 
-<p><strong>Name:</strong> {{ donor.user.first_name }} {{ donor.user.last_name }}</p>
-<p><strong>Username:</strong> {{ donor.user.username }}</p>
-<p><strong>Blood Group:</strong> {{ donor.blood_group }}</p>
-<p><strong>Age:</strong> {{ donor.age }}</p>
-<p><strong>Location:</strong> {{ donor.location }}</p>
-<p><strong>Medical Issues:</strong> {{ donor.medical_issues }}</p>
-<p><strong>Last Donation Date:</strong> {{ donor.last_donation_date }}</p>
-<p><strong>Available for Donation:</strong> {{ donor.available_for_donation }}</p>
-<p><strong>Consent to Contact:</strong> {{ donor.consent_to_contact }}</p>
-<br>
-<a href="{% url 'edit_donor_profile' %}">
-    Edit Profile
-</a>
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+        <div class="card profile-card shadow-sm">
+            <div class="card-body p-4">
+                <h2 class="profile-title text-center mb-4">
+                    Donor Profile
+                </h2>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <strong>Name:</strong><br>
+                        {{ donor.user.first_name }} {{ donor.user.last_name }}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <strong>Username:</strong><br>
+                        {{ donor.user.username }}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <strong>Blood Group:</strong><br>
+                        {{ donor.blood_group }}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <strong>Age:</strong><br>
+                        {{ donor.age }}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <strong>Location:</strong><br>
+                        {{ donor.location }}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <strong>Last Donation Date:</strong><br>
+                        {{ donor.last_donation_date }}
+                    </div>
+                    <div class="col-12 mb-3">
+                        <strong>Medical Issues:</strong><br>
+                        {{ donor.medical_issues|default:"None" }}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <strong>Available for Donation:</strong><br>
+                        {{ donor.available_for_donation }}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <strong>Consent to Contact:</strong><br>
+                        {{ donor.consent_to_contact }}
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <a
+                        href="{% url 'edit_donor_profile' %}"
+                        class="btn btn-warning"
+                    >
+                        Edit Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

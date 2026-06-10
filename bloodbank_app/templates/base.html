@@ -1,46 +1,151 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% load static %}
 
-    <title>{% block title %}LifeFlow{% endblock %}</title>
-   
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+<title>{% block title %}LifeFlow{% endblock %}</title>
+
 </head>
 <body>
-    <nav>
-    <a href="{% url 'home' %}"> Home</a>
-    {% if user.is_authenticated %}
-        {% if user.userprofile.role == 'HOSPITAL' %}
-            <a href="{% url 'hospital_dashboard' %}">Hospital Dashboard</a>
-            <a href="{% url 'add_inventory' %}">Add Inventory</a>
-            <a href="{% url 'donor_list' %}">View Donor List</a>
-            <a href="{% url 'hospital_blood_requests' %}">View Blood Requests</a>
-        {% else %}
-            <a href="{% url 'user_dashboard' %}">User Dashboard</a>
-            {% if user.donor %}
-                <a href="{% url 'donor_profile' %}">Donor Profile</a>
-            {% else %}
-                <a href="{% url 'become_donor' %}">Become Donor</a>
-            {% endif %}
-            <a href="{% url 'request_blood' %}">Request Blood</a>
-            <a href="{% url 'check_availability' %}">Check Blood Availability</a>
-            <a href="{% url 'donor_list' %}">View Donor List</a>
-            <a href="{% url 'my_blood_requests' %}">My Blood Requests</a>
-        {% endif %}
-        <a href="{% url 'logout' %}">Logout</a>
-    {% else %}
-        <a href="{% url 'register' %}">Register</a>
-        <a href="{% url 'login' %}"> Login</a>
-    {% endif %}
-</nav>
-    <hr>
-    {% block content %}
-    
-    {% endblock %}
-    
+    <nav class="navbar navbar-expand-lg navbar-dark lifeflow-navbar">
+        <div class="container">
+
+            <a class="navbar-brand lifeflow-brand" href="{% url 'home' %}">
+                LifeFlow
+            </a>
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#lifeflowNavbar"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="lifeflowNavbar">
+
+                <ul class="navbar-nav ms-auto">
+
+                    {% if user.is_authenticated %}
+
+                        {% if user.userprofile.role == 'HOSPITAL' %}
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'hospital_dashboard' %}">
+                                    Dashboard
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'add_inventory' %}">
+                                    Add Inventory
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'donor_list' %}">
+                                    Donors
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'hospital_blood_requests' %}">
+                                    Blood Requests
+                                </a>
+                            </li>
+
+                        {% else %}
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'user_dashboard' %}">
+                                    Dashboard
+                                </a>
+                            </li>
+
+                            {% if is_donor %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'donor_profile' %}">
+                                        Donor Profile
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'become_donor' %}">
+                                        Become Donor
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'request_blood' %}">
+                                    Request Blood
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'check_availability' %}">
+                                    Availability
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'donor_list' %}">
+                                    Donors
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'my_blood_requests' %}">
+                                    My Requests
+                                </a>
+                            </li>
+
+                        {% endif %}
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">
+                                Logout
+                            </a>
+                        </li>
+
+                    {% else %}
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">
+                                Register
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">
+                                Login
+                            </a>
+                        </li>
+
+                    {% endif %}
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <main class="lifeflow-main py-4">
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

@@ -1,8 +1,75 @@
 {% extends 'base.html' %}
-{% block title %}Home{% endblock %}
+
+{% block title %}
+LifeFlow
+{% endblock %}
 
 {% block content %}
-<h1>Welcome to LifeFlow</h1>
-<h3>Blood Bank Management System</h3>
 
-{% endblock%}
+<div class="text-center py-5">
+    <h1 class="display-4 fw-bold text-danger">
+        LifeFlow
+    </h1>
+    <p class="lead mb-4">
+        Blood Bank Management System
+    </p>
+    <p class="text-muted mb-5">
+        Connecting donors, hospitals, and patients to save lives through efficient blood management.
+    </p>
+    {% if not user.is_authenticated %}
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a
+                href="{% url 'register' %}"
+                class="btn btn-danger btn-lg"
+            >
+                Get Started
+            </a>
+            <a
+                href="{% url 'login' %}"
+                class="btn btn-outline-danger btn-lg"
+            >
+                Login
+            </a>
+        </div>
+    {% endif %}
+</div>
+<div class="row g-4 mt-4">
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100 action-card">
+            <div class="card-body text-center">
+                <h4>
+                    Donate Blood
+                </h4>
+                <p>
+                    Register as a donor and help save lives.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100 action-card">
+            <div class="card-body text-center">
+                <h4>
+                    Find Donors
+                </h4>
+                <p>
+                    Search available donors by blood group and location.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100 action-card">
+            <div class="card-body text-center">
+                <h4>
+                    Blood Requests
+                </h4>
+                <p>
+                    Request blood from hospitals and track request status.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
